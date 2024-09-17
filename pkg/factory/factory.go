@@ -1,4 +1,4 @@
-package factories
+package factory
 
 import "fmt"
 
@@ -15,10 +15,4 @@ func NewPerson(name string, age int) Person {
 		fmt.Printf("below age")
 	}
 	return Person{name, age, 2}
-}
-
-func main() {
-	p := NewPerson("John", 12)
-	p.Eyecount = 1
-
 }
