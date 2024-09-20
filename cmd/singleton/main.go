@@ -1,22 +1,24 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"go-design-patterns/pkg/singleton"
+)
 
 func main() {
-	// db := GetSingletonDatabase()
-	// pop := db.GetPopulation("Seoul")
-	// fmt.Println("Pop of seoul = ", pop)
+	db := singleton.GetSingletonDatabase()
+	pop := db.GetPopulation("Seoul")
+	fmt.Println("Pop of Seoul = ", pop)
 
-	// Fetching the singleton instance
-	singleton1 := GetInstance()
-	fmt.Println(singleton1.value) // Output: This is a singleton instance
+	cities := []string{"Seoul", "Mexico City"}
+	//tp := GetTotalPopulation(cities)
+	tp := singleton.GetTotalPopulationEx(singleton.GetSingletonDatabase(), cities)
 
-	// Fetching the singleton instance again to ensure it's the same instance
-	singleton2 := GetInstance()
-	fmt.Println(singleton2.value) // Output: This is a singleton instance
+	ok := tp == (17500000 + 17400000) // testing on live data
+	fmt.Println(ok)
 
-	// Check if both are the same instance
-	if singleton1 == singleton2 {
-		fmt.Println("Both are the same instance")
-	}
+	names := []string{"alpha", "gamma"} // expect 4
+	tp = singleton.GetTotalPopulationEx(&singleton.DummyDatabase{}, names)
+	ok = tp == 4
+	fmt.Println(ok)
 }
