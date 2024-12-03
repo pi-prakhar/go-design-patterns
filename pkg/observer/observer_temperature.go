@@ -3,32 +3,32 @@ package observer
 import "fmt"
 
 // Observer interface
-type Observer interface {
+type ObserverTemp interface {
 	Update(temp float64) // Update method to notify observers of the change
 }
 
 // Subject interface
-type Subject interface {
-	Register(observer Observer)   // Register an observer
-	Deregister(observer Observer) // Deregister an observer
-	Notify()                      // Notify all observers of a state change
+type SubjectTemp interface {
+	Register(observer ObserverTemp)   // Register an observer
+	Deregister(observer ObserverTemp) // Deregister an observer
+	Notify()                          // Notify all observers of a state change
 }
 
 // TemperatureSensor is the concrete subject
 type TemperatureSensor struct {
-	observers []Observer // List of observers
-	temp      float64    // Current temperature
+	observers []ObserverTemp // List of observers
+	temp      float64        // Current temperature
 }
 
 func NewTemperatureSensor() *TemperatureSensor {
 	return &TemperatureSensor{}
 }
 
-func (s *TemperatureSensor) Register(observer Observer) {
+func (s *TemperatureSensor) Register(observer ObserverTemp) {
 	s.observers = append(s.observers, observer) // Add an observer to the list
 }
 
-func (s *TemperatureSensor) Deregister(observer Observer) {
+func (s *TemperatureSensor) Deregister(observer ObserverTemp) {
 	for i, obs := range s.observers {
 		if obs == observer {
 			s.observers = append(s.observers[:i], s.observers[i+1:]...) // Remove the observer
