@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-design-patterns/pkg/builder"
 	"strings"
 )
 
@@ -18,4 +19,8 @@ func main() {
 	sb.WriteString(words[0])
 	sb.WriteString(words[1])
 	fmt.Println(sb.String())
+
+	bb := builder.NewBurgerBuilder()
+	burger := bb.ChooseBread(builder.MultiGrain).ChoosePatty(builder.ChickenPatty).AddCheese().AddMayonaise().Build()
+	fmt.Println(burger)
 }
